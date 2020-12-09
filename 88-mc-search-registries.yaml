@@ -1,0 +1,18 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 88-crio-search-registries
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,W2NyaW8uaW1hZ2VdCgpyZWdpc3RyaWVzID0gWwogICJuZXh1cy4wLnRhcmFudG8uZGV2OjgwODIiLAogICJkb2NrZXIuaW8iCl0K
+        overwrite: true
+        path: /etc/crio/crio.conf.d/88-crio-search-registries
+...
