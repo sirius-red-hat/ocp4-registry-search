@@ -8,7 +8,7 @@ An unqualified image is one that *does not* include a registry spec.  `quay.io/o
 
 1. This should probably **not** be deployed to master or infra nodes.  `.metadata.labels.machineconfiguration.openshift.io/role: worker` is significant.  Be very thoughtful if you consider changing it.
 2. `.spec.config.ignition.version: 3.1.0` is for OCP 4.6.x and above.  You'll need to switch to `2.1.0` for earlier versions.  The syntax is similar, if not identical.
-3. The CRIO config file you're igniting into the node must be base64 encoded and that output string will replace `<insert-base64-encoding-here>` in the deployment YAML.  There should be no line breaks, quotes or other characters in the encoded string.  To encode the file - `cat 88-search-registries | base64`.
+3. The CRIO config file you're igniting into the node must be base64 encoded and that output string will replace the sample encoding in the deployment YAML.  There should be no line breaks, quotes or other characters in the encoded string.  To encode the file - `cat 88-search-registries | base64`.
 4. The `88-search-registries` file should be edited to include a comma-delimited list of your registries in your preferred search order.  I would include `"docker.io"` as a final failsafe entry though I believe it's included by default.
 
 ## To deploy
