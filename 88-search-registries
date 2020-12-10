@@ -1,6 +1,1 @@
-[crio.image]
-
-registries = [
-  "nexus.0.taranto.dev:8082",
-  "docker.io"
-]
+unqualified-search-registries = ['registry.access.redhat.com', 'nexus.0.taranto.dev:8082', 'docker.io']

@@ -1,18 +1,26 @@
+# https://docs.openshift.com/container-platform/4.6/post_installation_configuration/machine-configuration-tasks.html#machineconfig-modify-registry_post-install-machine-configuration-tasks
 ---
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
   labels:
     machineconfiguration.openshift.io/role: worker
-  name: 88-crio-search-registries
+  name: 88-search-registries
 spec:
   config:
     ignition:
       version: 3.1.0
     storage:
       files:
-      - contents:
-          source: data:text/plain;charset=utf-8;base64,W2NyaW8uaW1hZ2VdCgpyZWdpc3RyaWVzID0gWwogICJuZXh1cy4wLnRhcmFudG8uZGV2OjgwODIiLAogICJkb2NrZXIuaW8iCl0K
+      - path: /etc/containers/registries.d/88-search-registries
+        contents:
+          source: data:text/plain;charset=utf-8;base64,dW5xdWFsaWZpZWQtc2VhcmNoLXJlZ2lzdHJpZXMgPSBbJ3JlZ2lzdHJ5LmFjY2Vzcy5yZWRoYXQuY29tJywgJ25leHVzLjAudGFyYW50by5kZXY6ODA4MicsICdkb2NrZXIuaW8nXQo=
         overwrite: true
-        path: /etc/crio/crio.conf.d/88-crio-search-registries
+      # Make sure the old CRIO method is removed.  We're doing this
+      # because it doesn't look like Ignition gives you the ability
+      # to delete a file.  Maybe it does, but the docs are terrible.
+      - path: /etc/crio/crio.conf.d/88-crio-search-registries
+        contents:
+          source: data:text/plain;charset=utf-8;base64,IyBOb3QgdXNlZC4gIElnbml0aW9uIGRvZXNuJ3QgZ2l2ZSB5b3Ugd2F5IHRvIGRlbGV0ZSBhIGZpbGUuCg==
+        overwrite: true
 ...
